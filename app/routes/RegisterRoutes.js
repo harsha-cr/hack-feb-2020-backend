@@ -18,4 +18,17 @@ app.post('/Register', async(req, res) => {
       }
 });
 
+app.put('/StatusUpdate', async(req, res) =>{
+  try{
+      const rows = await ResgisterDAO.updateStatus(req.body);
+      if(rows.affectedRows > 0) {
+          APIResponse.sendResponse(res, 200, "Role Updated SuccessFully");
+      } else {
+          throw Error("Failed");
+      }
+  } catch(e) {
+      APIResponse.sendResponse(res, 400, "Updation Failed");
+  }
+});
+
 module.exports = app;

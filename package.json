@@ -6,13 +6,16 @@
   "scripts": {
     "start": "node app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "update:local": "git fetch origin master && git pull origin master"
+    "update:local": "git fetch origin bootstrap && git pull origin bootstrap"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "joi": "^14.3.1",
     "mysql2": "^2.1.0",
     "process": "^0.11.10",
     "xlsx": "^0.15.5"

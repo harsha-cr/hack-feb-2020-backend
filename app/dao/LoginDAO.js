@@ -1,4 +1,5 @@
-const Dbutil = require("../config");
+const DBUtil = require("../config");
+const crypto = require('crypto');
 
 class LoginDao{
 
@@ -9,7 +10,10 @@ class LoginDao{
             return null;
         }
         return new Promise ((resolve, reject) => {
-            mysqlConnection.query('SELECT * FROM users WHERE mobile_number = ? AND email = ? AND password = ?', [entity.mobile_number, entity.email, entity.password], (err, rows, fields) => {
+            const decryptedmobile = crypto.createHash("sha256").update(entity.mobile_number).digest('hex');
+            const decryptedemail = crypto.createHash('sha256').update(entity.email).digest('hex');
+            const decryptedpassword = crypto.createHash('sha256').update(entity.password).digest('hex');
+            mysqlConnection.query('SELECT * FROM users WHERE mobile_number = ? AND email = ? AND password = ?', [decryptedmobile, decryptedemail, decryptedpassword], (err, rows, fields) => {
                 if (rows && rows.length > 0) {
                     resolve(rows[0]);
                  } else {
